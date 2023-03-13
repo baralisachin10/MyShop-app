@@ -22,8 +22,8 @@ class Cart with ChangeNotifier {
   }
 
   int get cartItemCount {
-    // ignore: unnecessary_null_comparison
-    return _items.length;
+    var cartItem = _items.length;
+    return cartItem;
   }
 
   double get totalAmount {
