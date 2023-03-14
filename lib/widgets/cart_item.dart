@@ -35,7 +35,7 @@ class CartItemWidget extends StatelessWidget {
           size: 40,
         ),
       ),
-      onDismissed: (direction) => cart.removeItem(productId),
+      onDismissed: (direction) =>cart.removeItem(productId),
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(
