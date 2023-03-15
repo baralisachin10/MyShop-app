@@ -63,6 +63,7 @@ class Cart with ChangeNotifier {
 
   void clearCart() {
     _items = {};
+    print("The cart item cleared");
     notifyListeners();
   }
 }

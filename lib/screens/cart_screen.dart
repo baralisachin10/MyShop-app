@@ -45,6 +45,7 @@ class CartScreen extends StatelessWidget {
                         cart.totalAmount,
                       );
                       cart.clearCart();
+                      // print("The cart item deleted");
                     },
                     child: const Text('Order Now'),
                   ),
