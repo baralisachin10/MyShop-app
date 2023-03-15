@@ -6,13 +6,9 @@ import '../provider/product.dart';
 import '../screens/product_details_screen.dart';
 
 class ProductItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-
-  // const ProductItem(this.id, this.title, this.imageUrl, {super.key});
   const ProductItem({super.key});
 
+  // final String id;
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
@@ -39,6 +35,19 @@ class ProductItem extends StatelessWidget {
                 product.id,
                 product.title,
                 product.price,
+              );
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Item added to cart!'),
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        cart.removeSingleItems(product.id);
+                      }),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
               );
             },
             icon: const Icon(Icons.shopping_cart),
