@@ -82,6 +82,9 @@ class _EditProudctScreenState extends State<EditProudctScreen> {
                     keyboardType: TextInputType.url,
                     textInputAction: TextInputAction.done,
                     controller: _imageUrlController,
+                    onEditingComplete: () {
+                      setState(() {});
+                    },
                   ),
                 ),
               ],
@@ -92,16 +95,3 @@ class _EditProudctScreenState extends State<EditProudctScreen> {
     );
   }
 }
-
-
-// Expanded(
-//   child: TextFormField(
-//     decoration: InputDecoration(labelText: 'Image URL'),
-//     keyboardType: TextInputType.url,
-//     textInputAction: TextInputAction.done,
-//     controller: _imageUrlController,
-//     onEditingComplete: () {
-//       setState(() {});
-//     },
-//   )
-// ),
