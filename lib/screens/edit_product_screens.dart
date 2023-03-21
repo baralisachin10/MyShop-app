@@ -62,7 +62,7 @@ class _EditProudctScreenState extends State<EditProudctScreen> {
           'title': _editedProduct.title,
           'price': _editedProduct.price.toString(),
           'description': _editedProduct.description,
-          // 'imageUrl': _editedProduct.imageUrl,
+          'imageUrl': '',
         };
         _imageUrlController.text = _editedProduct.imageUrl;
       }
