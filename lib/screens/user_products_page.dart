@@ -32,6 +32,7 @@ class UserProductsScreen extends StatelessWidget {
           itemBuilder: (context, i) => Column(
             children: [
               UserProductItem(
+                id: productData.items[i].id,
                 title: productData.items[i].title,
                 imageUrl: productData.items[i].imageUrl,
               ),
@@ -44,6 +45,3 @@ class UserProductsScreen extends StatelessWidget {
     );
   }
 }
-
-
-
