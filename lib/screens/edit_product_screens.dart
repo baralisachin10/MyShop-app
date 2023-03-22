@@ -53,11 +53,11 @@ class _EditProudctScreenState extends State<EditProudctScreen> {
   @override
   void didChangeDependencies() {
     if (isInit) {
-      final productId = ModalRoute.of(context)!.settings.arguments as String;
+      final productId = ModalRoute.of(context)!.settings.arguments;
       // ignore: unnecessary_null_comparison
-      if (productId != null) {
-        _editedProduct =
-            Provider.of<Products>(context, listen: false).findById(productId);
+      if (productId != '') {
+        _editedProduct = Provider.of<Products>(context, listen: false)
+            .findById(productId as String);
         _initProduct = {
           'title': _editedProduct.title,
           'price': _editedProduct.price.toString(),
@@ -92,7 +92,8 @@ class _EditProudctScreenState extends State<EditProudctScreen> {
     }
     _form.currentState!.save();
 
-    if (_editedProduct.id != '') {
+    // ignore: unnecessary_null_comparison
+    if (_editedProduct.id != null) {
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
     } else {
