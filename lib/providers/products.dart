@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-import 'product.dart';
+import './product.dart';
 
 class Products with ChangeNotifier {
-  final List<Product> _items = [
+  List<Product> _items = [
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -39,58 +37,43 @@ class Products with ChangeNotifier {
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
   ];
-
-  // var _showFavorite = false;
+  // var _showFavoritesOnly = false;
 
   List<Product> get items {
-    // if (_showFavorite) {
-    //   return _items.where((prod) => prod.isFavourite).toList();
+    // if (_showFavoritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
     // }
     return [..._items];
   }
 
-  List<Product> get showFavorite {
-    return _items.where((productItem) => productItem.isFavourite).toList();
+  List<Product> get favoriteItems {
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
-
-  // void showFavourites() {
-  //   _showFavorite = true;
-  //   notifyListeners();
-  // }
-
-  // void showAll() {
-  //   _showFavorite = false;
-  //   notifyListeners();
-  // }
 
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
+
   void addProduct(Product product) {
-    const url =
-        'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products.json';
-
-    http.post(
-      url as Uri,
-      body: json.encode({
-        'title': product.title,
-        'description': product.description,
-        'imageUrl': product.imageUrl,
-        'price': product.price,
-        'isFavourite': product.isFavourite,
-      }),
-    );
-
-    // _items.add(value);
     final newProduct = Product(
-      id: DateTime.now().toString(),
       title: product.title,
-      price: product.price,
       description: product.description,
+      price: product.price,
       imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
     );
     _items.add(newProduct);
+    // _items.insert(0, newProduct); // at the start of the list
     notifyListeners();
   }
 

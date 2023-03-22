@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/product_provider.dart';
+import '../providers/products.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   // final String title;
+  // final double price;
 
-  static const routeName = '/productDetails';
-  const ProductDetailScreen({super.key});
+  // ProductDetailScreen(this.title, this.price);
+  static const routeName = '/product-detail';
 
   @override
   Widget build(BuildContext context) {
     final productId =
-        ModalRoute.of(context)!.settings.arguments; //we got an product id
+        ModalRoute.of(context).settings.arguments as String; // is the id!
     final loadedProduct = Provider.of<Products>(
       context,
-      // listen: false, if we don't want to update the data
-    ).findById(productId.toString());
+      listen: false,
+    ).findById(productId);
     return Scaffold(
       appBar: AppBar(
         title: Text(loadedProduct.title),
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            Container(
+          children: <Widget>[
+            SizedBox(
               height: 300,
-              padding: const EdgeInsets.all(10),
               width: double.infinity,
               child: Image.network(
                 loadedProduct.imageUrl,
@@ -41,17 +41,18 @@ class ProductDetailScreen extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 loadedProduct.description,
+                textAlign: TextAlign.center,
                 softWrap: true,
-                style: const TextStyle(fontSize: 20, color: Colors.grey),
               ),
-            ),
+            )
           ],
         ),
       ),
