@@ -8,12 +8,17 @@ import '../providers/cart.dart';
 import './cart_screen.dart';
 
 enum FilterOptions {
+  // ignore: constant_identifier_names
   Favorites,
+  // ignore: constant_identifier_names
   All,
 }
 
 class ProductsOverviewScreen extends StatefulWidget {
+  const ProductsOverviewScreen({Key key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
 }
 
