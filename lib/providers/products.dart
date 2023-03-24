@@ -74,8 +74,11 @@ class Products with ChangeNotifier {
 
     try {
       final response = await http.get(url);
-      print(json.decode(response.body));
+      // print(json.decode(response.body));
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
       List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
@@ -87,7 +90,7 @@ class Products with ChangeNotifier {
           isFavorite: prodData['isFavorite'],
         ));
       });
-      _items = loadedProducts;
+      _items = loadedProducts.reversed.toList();
       notifyListeners();
     } catch (error) {
       rethrow;

@@ -22,6 +22,7 @@ class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
 
   List<OrderItem> get orders {
+    // ignore: sdk_version_ui_as_code
     return [..._orders];
   }
 
@@ -29,7 +30,31 @@ class Orders with ChangeNotifier {
     final url = Uri.parse(
         'https://myshop-app-76b0a-default-rtdb.firebaseio.com/orders.json');
     final response = await http.get(url);
-    print(json.decode(response.body));
+    // print(json.decode(response.body));
+    List<OrderItem> loadedOrders = [];
+    final extractedOrders = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedOrders == null) {
+      return;
+    }
+    extractedOrders.forEach((orderId, orderData) {
+      loadedOrders.add(
+        OrderItem(
+            id: orderId,
+            amount: orderData['amount'],
+            dateTime: DateTime.parse(orderData['dateTime']),
+            products: (orderData['products'] as List<dynamic>)
+                .map(
+                  (item) => CartItem(
+                      id: item['id'],
+                      title: item['title'],
+                      quantity: item['quantity'],
+                      price: item['price']),
+                )
+                .toList()),
+      );
+    });
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
