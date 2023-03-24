@@ -11,9 +11,11 @@ import './screens/orders_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -39,8 +41,8 @@ class MyApp extends StatelessWidget {
           home: const ProductsOverviewScreen(),
           routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-            CartScreen.routeName: (ctx) => CartScreen(),
-            OrdersScreen.routeName: (ctx) => OrdersScreen(),
+            CartScreen.routeName: (ctx) => const CartScreen(),
+            OrdersScreen.routeName: (ctx) => const OrdersScreen(),
             UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
             EditProductScreen.routeName: (ctx) => EditProductScreen(),
           }),
