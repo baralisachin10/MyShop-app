@@ -68,29 +68,26 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchAndSetproduct() async {
-    final url = Uri.parse(
-        'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products.json');
-
+ Future<void> fetchAndSetProducts() async {
+    final url = Uri.https('flutter-update.firebaseio.com', '/products.json');
     try {
       final response = await http.get(url);
-      // print(json.decode(response.body));
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
       }
-      List<Product> loadedProducts = [];
+      final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
           price: prodData['price'],
-          imageUrl: prodData['imageUrl'],
           isFavorite: prodData['isFavorite'],
+          imageUrl: prodData['imageUrl'],
         ));
       });
-      _items = loadedProducts.reversed.toList();
+      _items = loadedProducts;
       notifyListeners();
     } catch (error) {
       rethrow;
