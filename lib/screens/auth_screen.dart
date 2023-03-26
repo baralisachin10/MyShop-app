@@ -25,12 +25,12 @@ class AuthScreen extends StatelessWidget {
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: [0, 1],
+                stops: const [0, 1],
               ),
             ),
           ),
           SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: deviceSize.height,
               width: deviceSize.width,
               child: Column(
@@ -39,16 +39,16 @@ class AuthScreen extends StatelessWidget {
                 children: <Widget>[
                   Flexible(
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
+                      margin: const EdgeInsets.only(bottom: 20.0),
                       padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
                       transform: Matrix4.rotationZ(-8 * pi / 180)
                         ..translate(-10.0),
                       // ..translate(-10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.deepOrange.shade900,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 8,
                             color: Colors.black26,
@@ -59,7 +59,7 @@ class AuthScreen extends StatelessWidget {
                       child: Text(
                         'MyShop',
                         style: TextStyle(
-                          color: Theme.of(context).accentTextTheme.title.color,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 50,
                           fontFamily: 'Anton',
                           fontWeight: FontWeight.normal,
@@ -69,7 +69,7 @@ class AuthScreen extends StatelessWidget {
                   ),
                   Flexible(
                     flex: deviceSize.width > 600 ? 2 : 1,
-                    child: AuthCard(),
+                    child: const AuthCard(),
                   ),
                 ],
               ),
@@ -190,7 +190,7 @@ class _AuthCardState extends State<AuthCard> {
                           }
                         : null,
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 if (_isLoading)
@@ -221,7 +221,7 @@ class _AuthCardState extends State<AuthCard> {
                     style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all<Color>(
                           Theme.of(context).colorScheme.primary),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     child: Text(
                         '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
