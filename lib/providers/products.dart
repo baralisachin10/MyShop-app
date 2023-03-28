@@ -42,6 +42,10 @@ class Products with ChangeNotifier {
   ];
   // var _showFavoritesOnly = false;
 
+  String authToken;
+
+  Products(this.authToken, this._items);
+
   List<Product> get items {
     // if (_showFavoritesOnly) {
     //   return _items.where((prodItem) => prodItem.isFavorite).toList();
@@ -68,8 +72,9 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
- Future<void> fetchAndSetProducts() async {
-    final url = Uri.https('flutter-update.firebaseio.com', '/products.json');
+  Future<void> fetchAndSetProducts() async {
+    final url = Uri.parse(
+        'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products.json?auth=$authToken');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -96,7 +101,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products.json');
+        'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products.json?auth=$authToken');
 
     try {
       final response = await http.post(
@@ -130,7 +135,7 @@ class Products with ChangeNotifier {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url = Uri.parse(
-          'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products/$id.json');
+          'https://myshop-app-76b0a-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken');
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
