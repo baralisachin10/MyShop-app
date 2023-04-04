@@ -49,7 +49,6 @@ class _OrderItemState extends State<OrderItem> {
                             children: <Widget>[
                               Text(
                                 prod.title,
-                                // ignore: prefer_const_constructors
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

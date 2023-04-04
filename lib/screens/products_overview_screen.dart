@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/products.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
 import './cart_screen.dart';
+import '../providers/products.dart';
 
 enum FilterOptions {
-  // ignore: constant_identifier_names
   Favorites,
-  // ignore: constant_identifier_names
   All,
 }
 
 class ProductsOverviewScreen extends StatefulWidget {
-  const ProductsOverviewScreen({Key key}) : super(key: key);
-
   @override
-  // ignore: library_private_types_in_public_api
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
-  bool _isInit = true;
-  bool _isLoading = false;
+  var _isInit = true;
+  var _isLoading = false;
 
-  // @override
-  // void initState() {
-  //   Future.delayed(Duration.zero).then((_) {
-  //     Provider.of<Products>(context).fetchAndSetproduct();
-  //   });
-
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -57,7 +52,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyShop'),
+        title: Text('MyShop'),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
@@ -69,29 +64,27 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 }
               });
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.more_vert,
             ),
             itemBuilder: (_) => [
-              // ignore: prefer_const_constructors
-              PopupMenuItem(
-                value: FilterOptions.Favorites,
-                child: const Text('Only Favorites'),
-              ),
-              // ignore: prefer_const_constructors
-              PopupMenuItem(
-                value: FilterOptions.All,
-                child: const Text('Show All'),
-              ),
-            ],
+                  PopupMenuItem(
+                    child: Text('Only Favorites'),
+                    value: FilterOptions.Favorites,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Show All'),
+                    value: FilterOptions.All,
+                  ),
+                ],
           ),
           Consumer<Cart>(
-            builder: (context, cart, ch) => Badges(
-              value: cart.itemCount.toString(),
-              child: ch,
-            ),
+            builder: (_, cart, ch) => Badge(
+                  child: ch,
+                  value: cart.itemCount.toString(),
+                ),
             child: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.shopping_cart,
               ),
               onPressed: () {
@@ -103,7 +96,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       ),
       drawer: AppDrawer(),
       body: _isLoading
-          ? const Center(
+          ? Center(
               child: CircularProgressIndicator(),
             )
           : ProductsGrid(_showOnlyFavorites),
